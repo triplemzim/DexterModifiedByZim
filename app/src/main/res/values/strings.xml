@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">RuntimePermission</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="permissionList">
+        <item>Message</item>
+        <item>Call</item>
+        <item>Internet</item>
+        <item>Location</item>
+        <item>Read Storage</item>
+        <item>Write Storage</item>
+        <item>Camera</item>
+        <item>Record Audio</item>
+        <item>Vibrate</item>
+        <item>Camera</item>
+        <item>R/W Contacts</item>
+        <item>Bluetooth</item>
+        <item>Wifi</item>
+    </string-array>
+</resources>
