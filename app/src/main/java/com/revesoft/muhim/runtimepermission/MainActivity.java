@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 3:
                         Dexter.withActivity(activity)
-                                .withPermissions(Manifest.permission.LOCATION_HARDWARE,
+                                .withPermissions(
                                         Manifest.permission.ACCESS_COARSE_LOCATION,
                                         Manifest.permission.ACCESS_FINE_LOCATION)
                                 .withListener(multiPermissionListener)
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                     case 12:
                         Dexter.withActivity(activity)
                                 .withPermissions(Manifest.permission.ACCESS_WIFI_STATE,
-                                            Manifest.permission.CHANGE_WIFI_STATE)
+                                            Manifest.permission.ACCESS_NETWORK_STATE)
                                 .withListener(multiPermissionListener)
                                 .check();
                         break;
