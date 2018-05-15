@@ -30,6 +30,8 @@ public interface DexterBuilder {
   DexterBuilder withErrorListener(PermissionRequestErrorListener errorListener);
 
   DexterBuilder withAlertDialog(String title, String message, Activity activity);
+  DexterBuilder withFullScreenDialog(String title, String message, Activity activity);
+  DexterBuilder withFullScreenDialogBackground(int resIdBackground, int colorIdText, int backgroundButton, int buttonTextColor);
 
   void check();
 

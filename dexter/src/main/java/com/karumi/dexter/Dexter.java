@@ -99,12 +99,25 @@ public final class Dexter
   @Override
   public DexterBuilder withAlertDialog(String title, String message, Activity activity) {
       instance.buildAlertDialog(title, message, activity);
-
       return this;
 //      builder.show();
   }
 
-  @Override public void check() {
+  @Override
+  public DexterBuilder withFullScreenDialog(String title, String message, Activity activity) {
+    instance.buildFullScreenDialog(title, message, activity);
+
+    return this;
+//      builder.show();
+  }
+
+    @Override
+    public DexterBuilder withFullScreenDialogBackground(int resIdBackground, int textColor, int buttonColor, int buttonTextColor) {
+        instance.changeBackgroundOfDialog(resIdBackground, textColor, buttonColor, buttonTextColor);
+        return this;
+    }
+
+    @Override public void check() {
     try {
       Thread thread = getThread();
       instance.checkPermissions(listener, permissions, thread);

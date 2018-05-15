@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -105,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
                         Dexter.withActivity(activity)
                                 .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                                 .withListener(listener)
+                                .withFullScreenDialog("Info", "We need this because of bla", activity)
+                                .withFullScreenDialogBackground(R.drawable.background2, Color.GREEN, Color.BLUE, Color.WHITE)
                                 .check();
                         break;
                     case 6:
@@ -118,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
                         Dexter.withActivity(activity)
                                 .withPermission(Manifest.permission.RECORD_AUDIO)
                                 .withListener(listener)
+                                .withFullScreenDialog("Info", "We need this because of bla", activity)
+                                .withFullScreenDialogBackground(R.drawable.background, Color.GREEN, Color.BLUE, Color.WHITE)
                                 .check();
                         break;
                     case 8:

@@ -1,40 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="#fffffe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="#ffdd00"
     android:orientation="vertical"
+    android:id="@+id/dialogRootLayout"
     android:padding="16dp">
+
 
     <TextView
         android:id="@+id/tvTitle"
+        android:paddingBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:textColor="#333333"
+        android:textStyle="bold"
         android:textSize="18sp"
         android:text="Title" />
 
     <TextView
         android:id="@+id/tvMessage"
+        android:paddingBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:textColor="#333333"
         android:textSize="14sp"
-        android:text="message" />
+        android:text="Hi Zim!" />
     <TextView
         android:id="@+id/tvOK"
         android:layout_width="match_parent"
         android:padding="16dp"
         android:layout_gravity="center"
-        android:background="#d2d2d2"
+        android:background="#e6e4e4"
         android:gravity="center"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:textColor="#333333"
         android:textSize="16sp"
-        android:text="ok" />
+        android:text="@android:string/ok" />
 </LinearLayout>
+
+</RelativeLayout>

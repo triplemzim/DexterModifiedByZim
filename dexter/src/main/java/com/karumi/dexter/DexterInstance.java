@@ -23,11 +23,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.media.Image;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.karumi.dexter.listener.DexterError;
@@ -67,11 +72,13 @@ final class DexterInstance {
 
 	private Activity activity;
 	private MultiplePermissionsListener listener = EMPTY_LISTENER;
-	private boolean showDialog;
+	private boolean showDialog, showDialogRequest;
 	private PermissionStates permissionStates;
 
 	private AlertDialog.Builder builder = null;
 	private Dialog dialog;
+	private String okButtonText = null;
+	private int dialogBackgroundResId;
 
 	DexterInstance(Context context, AndroidPermissionService androidPermissionService,
 				   IntentProvider intentProvider) {
@@ -89,34 +96,62 @@ final class DexterInstance {
 		this.context = new WeakReference<>(context);
 	}
 
+	void buildFullScreenDialog(String title, String message, Activity activity){
+	    showDialogRequest = true;
+        builder = null;
+        dialog = new Dialog(activity,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        dialog.setContentView(R.layout.intro_dialog_layout);
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        }
+        TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
+        tvTitle.setText(title);
+        TextView tvMessage = (TextView) dialog.findViewById(R.id.tvMessage);
+        tvMessage.setText(message);
+
+        dialog.findViewById(R.id.tvOK).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                    continueWithSystemRequest();
+                }
+            }
+        });
+    }
+
+    void changeBackgroundOfDialog(int resIdBackground, int textColor, int buttonColor, int buttonTextColor){
+	    if(dialog != null){
+	        ImageView backgroundImage= (ImageView) dialog.findViewById(R.id.backgroundImage);
+            TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
+            TextView tvMessage = (TextView) dialog.findViewById(R.id.tvMessage);
+            TextView tvOk = (TextView) dialog.findViewById(R.id.tvOK);
+            tvOk.setTextColor(buttonTextColor);
+            tvTitle.setTextColor(textColor);
+            tvMessage.setTextColor(textColor);
+            tvOk.setBackgroundColor(buttonColor);
+
+	        backgroundImage.setImageResource(resIdBackground);
+	        backgroundImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
+    }
+
+
 	void buildAlertDialog(String title, String message, Activity activity) {
-		dialog = new Dialog(activity,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-		dialog.setContentView(R.layout.intro_dialog_layout);
-		Window window = dialog.getWindow();
-		if (window != null) {
-			window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-		}
-		TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
-		tvTitle.setText(title);
-		dialog.findViewById(R.id.tvOK).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (dialog != null && dialog.isShowing()) {
-					dialog.dismiss();
-					continueWithSystemRequest();
-				}
-			}
-		});
-//    builder = new AlertDialog.Builder(activity);
-//    builder.setTitle(title);
-//    builder.setMessage(message);
-//    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//      @Override
-//      public void onClick(DialogInterface dialog, int which) {
-//        dialog.cancel();
-//        continueWithSystemRequest();
-//      }
-//    });
+	    dialog = null;
+	    showDialogRequest = true;
+        builder = new AlertDialog.Builder(activity);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setCancelable(false);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            dialog.cancel();
+            continueWithSystemRequest();
+          }
+        });
 		showDialog = false;
 	}
 
@@ -159,8 +194,13 @@ final class DexterInstance {
 		}
 
 		if (permissionStates != null) {
-			if (showDialog) {
-				dialog.show();
+			if (showDialog && showDialogRequest) {
+			    if(dialog != null){
+			        dialog.show();
+                }
+                else{
+			        builder.show();
+                }
 			} else {
 				continueWithSystemRequest();
 			}
@@ -168,7 +208,7 @@ final class DexterInstance {
 	}
 
 	void continueWithSystemRequest() {
-
+	    showDialogRequest = false;
 		handleDeniedPermissions(permissionStates.getDeniedPermissions());
 		updatePermissionsAsDenied(permissionStates.getImpossibleToGrantPermissions());
 		updatePermissionsAsGranted(permissionStates.getGrantedPermissions());
