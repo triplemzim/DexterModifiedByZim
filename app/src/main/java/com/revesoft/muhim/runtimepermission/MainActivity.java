@@ -94,20 +94,22 @@ public class MainActivity extends AppCompatActivity {
                                         Manifest.permission.ACCESS_COARSE_LOCATION,
                                         Manifest.permission.ACCESS_FINE_LOCATION)
                                 .withListener(multiPermissionListener)
+                                .withFullScreenDialog("We need your permission!", "This app needs permission to use this feature. You can grant them in app settings.", activity)
                                 .check();
                         break;
                     case 4:
                         Dexter.withActivity(activity)
                                 .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                                 .withListener(listener)
+                                .withFullScreenDialog("We need your permission!", "This app needs permission to use this feature. You can grant them in app settings.", activity)
+                                .withFullScreenDialogBackground(R.drawable.background)
                                 .check();
                         break;
                     case 5:
                         Dexter.withActivity(activity)
                                 .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                                 .withListener(listener)
-                                .withFullScreenDialog("Info", "We need this because of bla", activity)
-                                .withFullScreenDialogBackground(R.drawable.background2, Color.GREEN, Color.BLUE, Color.WHITE)
+                                .withFullScreenDialogAndLayout("We need your permission!", "This app needs permission to use this feature. You can grant them in app settings.", activity, R.layout.custom_background)
                                 .check();
                         break;
                     case 6:
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         Dexter.withActivity(activity)
                                 .withPermission(Manifest.permission.RECORD_AUDIO)
                                 .withListener(listener)
-                                .withFullScreenDialog("Info", "We need this because of bla", activity)
+                                .withFullScreenDialog("We need your permission!", "This app needs permission to use this feature. You can grant them in app settings.", activity)
                                 .withFullScreenDialogBackground(R.drawable.background, Color.GREEN, Color.BLUE, Color.WHITE)
                                 .check();
                         break;

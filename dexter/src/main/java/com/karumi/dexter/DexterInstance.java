@@ -77,8 +77,6 @@ final class DexterInstance {
 
 	private AlertDialog.Builder builder = null;
 	private Dialog dialog;
-	private String okButtonText = null;
-	private int dialogBackgroundResId;
 
 	DexterInstance(Context context, AndroidPermissionService androidPermissionService,
 				   IntentProvider intentProvider) {
@@ -106,11 +104,10 @@ final class DexterInstance {
             window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         }
         TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
-//        tvTitle.setText(title);
+        tvTitle.setText(title);
         TextView tvMessage = (TextView) dialog.findViewById(R.id.tvMessage);
-//        tvMessage.setText(message);
-
-        dialog.findViewById(R.id.tvOK).setOnClickListener(new View.OnClickListener() {
+        tvMessage.setText(message);
+        dialog.findViewById(R.id.btOK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -119,19 +116,52 @@ final class DexterInstance {
         });
     }
 
+    void buildFullScreenDialogAndLayout(String title, String message, Activity activity, int resLayout){
+        showDialogRequest = true;
+        builder = null;
+        dialog = new Dialog(activity,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        dialog.setContentView(resLayout);
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        }
+        TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
+        tvTitle.setText(title);
+        TextView tvMessage = (TextView) dialog.findViewById(R.id.tvMessage);
+        tvMessage.setText(message);
+
+        dialog.findViewById(R.id.btOK).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                continueWithSystemRequest();
+            }
+        });
+    }
+
+
     void changeBackgroundOfDialog(int resIdBackground, int textColor, int buttonColor, int buttonTextColor){
 	    if(dialog != null){
 	        ImageView backgroundImage= (ImageView) dialog.findViewById(R.id.backgroundImage);
             TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
             TextView tvMessage = (TextView) dialog.findViewById(R.id.tvMessage);
-            TextView tvOk = (TextView) dialog.findViewById(R.id.tvOK);
-//            tvOk.setTextColor(buttonTextColor);
-//            tvTitle.setTextColor(textColor);
-//            tvMessage.setTextColor(textColor);
-//            tvOk.setBackgroundColor(buttonColor);
+            TextView tvOk = (TextView) dialog.findViewById(R.id.btOK);
+            tvOk.setTextColor(buttonTextColor);
+            tvTitle.setTextColor(textColor);
+            tvMessage.setTextColor(textColor);
+            tvOk.setBackgroundColor(buttonColor);
 
 	        backgroundImage.setImageResource(resIdBackground);
 	        backgroundImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
+    }
+
+    void changeBackgroundOfDialog(int resIdBackground){
+        if(dialog != null){
+            ImageView backgroundImage= (ImageView) dialog.findViewById(R.id.backgroundImage);
+
+            backgroundImage.setImageResource(resIdBackground);
+            backgroundImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
     }
 

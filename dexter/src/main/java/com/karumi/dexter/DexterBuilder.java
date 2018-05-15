@@ -31,7 +31,9 @@ public interface DexterBuilder {
 
   DexterBuilder withAlertDialog(String title, String message, Activity activity);
   DexterBuilder withFullScreenDialog(String title, String message, Activity activity);
-  DexterBuilder withFullScreenDialogBackground(int resIdBackground, int colorIdText, int backgroundButton, int buttonTextColor);
+  DexterBuilder withFullScreenDialogAndLayout(String title, String message, Activity activity, int resLayout);
+  DexterBuilder withFullScreenDialogBackground(int resIdBackground, int textColor, int backgroundButton, int buttonTextColor);
+  DexterBuilder withFullScreenDialogBackground(int resIdBackground);
 
   void check();
 

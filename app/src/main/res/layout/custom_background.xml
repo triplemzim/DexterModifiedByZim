@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rootLayout"
-    android:background="#e9e6e6"
+    android:background="@drawable/background2"
     android:gravity="center"
     >
 
@@ -16,7 +15,6 @@
         android:scaleType="centerCrop" />
 
     <FrameLayout
-        android:id="@+id/filterForbg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#80000000" />
