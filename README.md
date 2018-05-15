@@ -108,7 +108,7 @@ Dexter.withActivity(this)
 	.check();
 ```
 
-![Demo screenshot][7]
+![Demo screenshot][8]
 
 ### FullScreen Dialog with custom layout
 
