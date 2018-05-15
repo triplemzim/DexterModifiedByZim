@@ -53,10 +53,6 @@ public class MainActivity extends AppCompatActivity {
         activity = this;
 
         initiate_list_view();
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setVisibility(View.GONE);
-
     }
 
     private void initiate_list_view() {
@@ -73,12 +69,14 @@ public class MainActivity extends AppCompatActivity {
                                         Manifest.permission.RECEIVE_SMS,
                                         Manifest.permission.SEND_SMS)
                                 .withListener(multiPermissionListener)
+                                .withAlertDialog("Info", "We need this permission because we need to know what are you texting!", activity)
                                 .check();
                         break;
                     case 1:
                         Dexter.withActivity(activity)
                                 .withPermission(Manifest.permission.CALL_PHONE)
                                 .withListener(listener)
+                                .withAlertDialog("Info", "We need this permission because we need to know who you are calling all day!", activity)
                                 .check();
 
                         break;
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         Dexter.withActivity(activity)
                                 .withPermission(Manifest.permission.CAMERA)
                                 .withListener(listener)
-                                .withAlertDialog("Info", "We need this because of bla", activity)
+                                .withAlertDialog("Info", "We need this permission because we really need it!", activity)
                                 .check();
                         break;
                     case 7:
@@ -124,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                                 .withPermission(Manifest.permission.RECORD_AUDIO)
                                 .withListener(listener)
                                 .withFullScreenDialog("We need your permission!", "This app needs permission to use this feature. You can grant them in app settings.", activity)
-                                .withFullScreenDialogBackground(R.drawable.background, Color.GREEN, Color.BLUE, Color.WHITE)
+                                .withFullScreenDialogBackground(R.drawable.background, Color.GREEN, Color.LTGRAY, Color.BLACK)
                                 .check();
                         break;
                     case 8:
@@ -154,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
                                 .withListener(multiPermissionListener)
                                 .check();
                         break;
-                    case 12:
-
                     default:
                         break;
                 }
@@ -163,28 +159,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
     public void initiate_listener(){
-
         multiPermissionListener = new MultiplePermissionsListener(){
 
             @Override
@@ -210,8 +185,8 @@ public class MainActivity extends AppCompatActivity {
             public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
                 token.continuePermissionRequest();
             }
-
         };
+
         listener = new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
@@ -265,4 +240,24 @@ public class MainActivity extends AppCompatActivity {
         intent.setData(uri);
         startActivityForResult(intent, 101);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            openSettings();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
