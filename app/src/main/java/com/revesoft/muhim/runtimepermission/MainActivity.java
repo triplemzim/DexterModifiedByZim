@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         initiate_listener();
-
         context = this;
         activity = this;
 
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         Dexter.withActivity(activity)
                                 .withPermission(Manifest.permission.CAMERA)
                                 .withListener(listener)
-                                .onSameThread()
+                                .withAlertDialog("Info", "We need this because of bla", activity)
                                 .check();
                         break;
                     case 7:
@@ -131,32 +130,28 @@ public class MainActivity extends AppCompatActivity {
                                 .check();
                         break;
                     case 9:
-                        Dexter.withActivity(activity)
-                                .withPermission(Manifest.permission.CAMERA)
-                                .withListener(listener)
-                                .check();
-                        break;
-                    case 10:
-                        Dexter.withActivity(activity)
+                       Dexter.withActivity(activity)
                                 .withPermissions(Manifest.permission.READ_CONTACTS,
                                         Manifest.permission.WRITE_CONTACTS)
                                 .withListener(multiPermissionListener)
                                 .check();
                         break;
-                    case 11:
+                    case 10:
                         Dexter.withActivity(activity)
                                 .withPermissions(Manifest.permission.BLUETOOTH,
                                         Manifest.permission.BLUETOOTH_ADMIN)
                                 .withListener(multiPermissionListener)
                                 .check();
                         break;
-                    case 12:
+                    case 11:
                         Dexter.withActivity(activity)
                                 .withPermissions(Manifest.permission.ACCESS_WIFI_STATE,
                                             Manifest.permission.ACCESS_NETWORK_STATE)
                                 .withListener(multiPermissionListener)
                                 .check();
                         break;
+                    case 12:
+
                     default:
                         break;
                 }
