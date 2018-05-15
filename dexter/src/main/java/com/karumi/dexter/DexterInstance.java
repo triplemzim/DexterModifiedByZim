@@ -106,17 +106,15 @@ final class DexterInstance {
             window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         }
         TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
-        tvTitle.setText(title);
+//        tvTitle.setText(title);
         TextView tvMessage = (TextView) dialog.findViewById(R.id.tvMessage);
-        tvMessage.setText(message);
+//        tvMessage.setText(message);
 
         dialog.findViewById(R.id.tvOK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
+
                     continueWithSystemRequest();
-                }
             }
         });
     }
@@ -127,10 +125,10 @@ final class DexterInstance {
             TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
             TextView tvMessage = (TextView) dialog.findViewById(R.id.tvMessage);
             TextView tvOk = (TextView) dialog.findViewById(R.id.tvOK);
-            tvOk.setTextColor(buttonTextColor);
-            tvTitle.setTextColor(textColor);
-            tvMessage.setTextColor(textColor);
-            tvOk.setBackgroundColor(buttonColor);
+//            tvOk.setTextColor(buttonTextColor);
+//            tvTitle.setTextColor(textColor);
+//            tvMessage.setTextColor(textColor);
+//            tvOk.setBackgroundColor(buttonColor);
 
 	        backgroundImage.setImageResource(resIdBackground);
 	        backgroundImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -370,6 +368,9 @@ final class DexterInstance {
 				MultiplePermissionsListener currentListener = listener;
 				listener = EMPTY_LISTENER;
 				currentListener.onPermissionsChecked(multiplePermissionsReport);
+				if(dialog!=null && dialog.isShowing()){
+					dialog.dismiss();
+				}
 			}
 		}
 	}

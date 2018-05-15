@@ -1,57 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:background="#fffffe"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/backgroundImage"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
-
-<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fffffe"
     android:gravity="center"
-    android:orientation="vertical"
-    android:id="@+id/dialogRootLayout"
-    android:padding="16dp">
+    tools:background="@tools:sample/backgrounds/scenic">
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000" />
 
 
     <TextView
         android:id="@+id/tvTitle"
-        android:paddingBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:layout_marginTop="64dp"
         android:fontFamily="sans-serif-light"
-        android:textColor="#333333"
-        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:text="We need your permission"
+        android:textColor="#ffffff"
         android:textSize="18sp"
-        android:text="Title" />
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/tvOK"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_margin="16dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@android:string/ok"
+        android:textColor="#333333"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvMessage"
-        android:paddingBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/tvOK"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="32dp"
         android:fontFamily="sans-serif-light"
-        android:textColor="#333333"
-        android:textSize="14sp"
-        android:text="Hi Zim!" />
-    <TextView
-        android:id="@+id/tvOK"
-        android:layout_width="match_parent"
-        android:padding="16dp"
-        android:layout_gravity="center"
-        android:background="#e6e4e4"
         android:gravity="center"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:textColor="#333333"
-        android:textSize="16sp"
-        android:text="@android:string/ok" />
-</LinearLayout>
-
+        android:text="Hi Zim! We need your humble permission to run this feature in our very beautiul app. :)"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
 </RelativeLayout>
