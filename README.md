@@ -15,7 +15,6 @@ Screenshots
 
 ![Demo screenshot][1]
 
-![Demo screenshot][8]
 
 Usage
 -----
